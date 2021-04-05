@@ -1,8 +1,14 @@
 /* eslint-disable react/prefer-stateless-function */
 import React, { Component } from 'react';
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { fetchCars } from '../actions/index';
 
 class CarsIndex extends Component {
+  componentDidMount() {
+    this.props.fetchCars(this.props.garage);
+  }
+
   renderCar = ({ id, brand, model, owner, plate }) => {
     return (
       <div className="card flex-column my-3">
@@ -26,10 +32,15 @@ class CarsIndex extends Component {
   }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps(state, ownProps) {
   return {
+    garage: state.garage,
     cars: state.cars
   };
 }
 
-export default connect(mapStateToProps)(CarsIndex);
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ fetchCars }, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(CarsIndex);
