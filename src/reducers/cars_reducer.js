@@ -1,3 +1,8 @@
-export default function carsReducer(state = null, action) {
-  
-}
+const carsReducer = (state = [], action) => {
+  switch (action.type) {
+    default:
+      return state;
+  }
+};
+
+export default carsReducer;

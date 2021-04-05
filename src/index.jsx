@@ -38,7 +38,7 @@ ReactDOM.render(
   <Provider store={createStore(reducers, initialState, middlewares)}>
     <Router history={history}>
       <Switch>
-        <Route path="/:garage" component={carsIndex} />
+        <Route path="/" component={carsIndex} />
       </Switch>
     </Router>
   </Provider>,
