@@ -32,7 +32,7 @@ class CarsIndex extends Component {
   }
 }
 
-function mapStateToProps(state, ownProps) {
+function mapStateToProps(state) {
   return {
     garage: state.garage,
     cars: state.cars

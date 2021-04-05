@@ -11,6 +11,7 @@ import { createHistory as history } from 'history';
 // internal modules
 import '../assets/stylesheets/application.scss';
 import carsIndex from './containers/cars_index';
+import carsNew from './containers/cars_new';
 
 // reducers
 import carsReducer from './reducers/cars_reducer';
@@ -39,6 +40,7 @@ ReactDOM.render(
     <Router history={history}>
       <Switch>
         <Route path="/" component={carsIndex} />
+        <Route path="/new" component={carsNew} />
       </Switch>
     </Router>
   </Provider>,
