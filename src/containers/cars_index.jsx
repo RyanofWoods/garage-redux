@@ -14,7 +14,7 @@ class CarsIndex extends Component {
       <div className="card flex-column my-3">
         <img className="card-img-top" alt={`A ${brand} ${model} car.`} src="..." />
         <div className="card-body">
-          <h5 className="card-title">{`${brand}$ - {model}`}</h5>
+          <h5 className="card-title">{`${brand} - ${model}`}</h5>
           <p className="card-text">{`Owner: ${owner}`}</p>
         </div>
       </div>

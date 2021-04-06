@@ -1,6 +1,6 @@
 const BASE_URL = 'https://wagon-garage-api.herokuapp.com';
 export const FETCH_CARS = 'FETCH_CARS';
-export const CREATE_CAR = 'CREATE_CAR';
+const CREATE_CAR = 'CREATE_CAR';
 
 export function fetchCars(garage) {
   const url = `${BASE_URL}/${garage}/cars`;
@@ -13,7 +13,7 @@ export function fetchCars(garage) {
   };
 }
 
-export function createCar(garage, brand, model, owner, plate) {
+export function createCar(garage, body, callback) {
   const url = `${BASE_URL}/${garage}/cars`;
   const promise = fetch(url, {
     method: 'POST',
@@ -21,9 +21,10 @@ export function createCar(garage, brand, model, owner, plate) {
       Accept: 'application/json',
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify({ brand, model, owner, plate })
+    body: JSON.stringify(body)
   })
-    .then(response => response.json());
+    .then(response => response.json())
+    .then(callback);
 
   return {
     type: CREATE_CAR,
