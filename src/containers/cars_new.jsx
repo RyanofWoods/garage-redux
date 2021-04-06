@@ -1,36 +1,49 @@
-/* eslint-disable react/prefer-stateless-function */
+/* eslint-disable class-methods-use-this */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { reduxForm, Field } from 'redux-form';
 import { createCar } from '../actions/index';
 
+const required = value => (value ? undefined : 'Required');
+const license = value => (value && /^[A-Z0-9]{3,8}$/.test(value.replace(/\s/g, '')) ? undefined : 'Invalid license plate. Must be only numbers or capital letters and no more than 8');
 class CarsNew extends Component {
   onSubmit = (values) => {
-      this.props.createCar(this.props.garage, values, (car) => {
-      debugger
+    this.props.createCar(this.props.garage, values, (promise) => {
       this.props.history.push('/');
-      return car;
+      return promise;
     });
   }
 
-  renderField(field) {
+  renderField({ input, label, type, meta: { touched, error, active } }) {
+    let feedback = null;
+    let inputClasses = "form-control";
+
+    if ((touched || active) && error) {
+      feedback = (<div className="invalid-feedback d-block">{error}</div>);
+      inputClasses += " is-invalid";
+    } else if ((touched || active) && !error) {
+      feedback = (<div className="valid-feedback d-block">Looks good!</div>);
+      inputClasses += " is-valid";
+    }
+
     return (
       <div className="form-group">
-        <label>{field.label}</label>
-        <input className="form-control" type={field.type}{...field.input} />
+        <label>{label}</label>
+        <input {...input} className={inputClasses} type={type} />
+        {feedback}
       </div>
     );
   }
 
-  render() { // brand model owner plate
-    const { handleSubmit, pristine, submitting } = this.props;
+  render() {
+    const { handleSubmit, invalid, submitting } = this.props;
     return (
-      <form onSubmit={handleSubmit(this.onSubmit)}>
-        <Field label="Brand" name="brand" type="text" component={this.renderField} />
-        <Field label="Model" name="model" type="text" component={this.renderField} />
-        <Field label="Owner" name="owner" type="text" component={this.renderField} />
-        <Field label="Plate" name="plate" type="text" component={this.renderField} />
-        <button className="btn btn-primary" type="sumbit" disabled={ pristine || submitting}>Add car</button>
+      <form onSubmit={handleSubmit(this.onSubmit)} className="needs-validation" noValidate>
+        <Field label="Brand" name="brand" type="text" component={this.renderField} validate={[required]} />
+        <Field label="Model" name="model" type="text" component={this.renderField} validate={[required]} />
+        <Field label="Owner" name="owner" type="text" component={this.renderField} validate={[required]} />
+        <Field label="Plate" name="plate" type="text" component={this.renderField} validate={[required, license]} />
+        <button className="btn btn-primary" type="submit" disabled={invalid || submitting}>Add car</button>
       </form>
     );
   }
@@ -42,4 +55,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default reduxForm({ form: 'newPostForm' })(connect(mapStateToProps, { createCar })(CarsNew)) // connect(mapStateToProps, mapDispatchToProps)(CarsNew);
+export default reduxForm({ form: 'newPostForm' })(connect(mapStateToProps, { createCar })(CarsNew));
