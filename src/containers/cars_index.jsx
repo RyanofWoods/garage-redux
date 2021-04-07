@@ -14,7 +14,7 @@ class CarsIndex extends Component {
 
   renderCar = ({ id, brand, model, owner }) => {
     return (
-      <div className="card card-car flex-column my-3">
+      <div className="card card-car flex-column">
         <Link to={`/cars/${id}`} key={id} className="text-dec-none" >
           <div className="card-body">
             <h5 className="card-title">{`${brand} - ${model}`}</h5>
@@ -36,7 +36,9 @@ class CarsIndex extends Component {
   render() {
     return [
       this.renderAside(),
-      this.props.cars.map(this.renderCar)
+      <div className="flex w-100">
+        {this.props.cars.map(this.renderCar)}
+      </div>
     ];
   }
 }

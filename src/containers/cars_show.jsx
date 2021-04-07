@@ -15,7 +15,7 @@ class CarsIndex extends Component {
 
   renderCar = ({ brand, model, owner, plate }) => {
     return (
-      <div className="card card-car flex-column my-3">
+      <div className="card card-car flex-column">
         <div className="card-body">
           <h5 className="card-title">{`${brand} - ${model}`}</h5>
           <p className="card-text">{`Owner: ${owner}`}, {`Plate: ${plate}`}</p>
