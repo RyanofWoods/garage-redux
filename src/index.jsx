@@ -13,6 +13,7 @@ import { reducer as formReducer } from 'redux-form';
 import '../assets/stylesheets/application.scss';
 import carsIndex from './containers/cars_index';
 import carsNew from './containers/cars_new';
+import carsShow from './containers/cars_show';
 
 // reducers
 import carsReducer from './reducers/cars_reducer';
@@ -43,6 +44,7 @@ ReactDOM.render(
       <Switch>
         <Route path="/" exact component={carsIndex} />
         <Route path="/new" component={carsNew} />
+        <Route path="/cars/:id" component={carsShow} />
       </Switch>
     </Router>
   </Provider>,

@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { fetchCars } from '../actions/index';
+import { Link } from 'react-router-dom';
 
 class CarsIndex extends Component {
   componentDidMount() {
@@ -11,13 +12,15 @@ class CarsIndex extends Component {
 
   renderCar = ({ id, brand, model, owner, plate }) => {
     return (
-      <div className="card flex-column my-3">
-        <img className="card-img-top" alt={`A ${brand} ${model} car.`} src="..." />
-        <div className="card-body">
-          <h5 className="card-title">{`${brand} - ${model}`}</h5>
-          <p className="card-text">{`Owner: ${owner}`}</p>
+      <Link to={`/cars/${id}`} key={id} className="text-dec-none" >
+        <div className="card flex-column my-3">
+          <img className="card-img-top" alt={`A ${brand} ${model} car.`} src="..." />
+          <div className="card-body">
+            <h5 className="card-title">{`${brand} - ${model}`}</h5>
+            <p className="card-text">{`Owner: ${owner}`}</p>
+          </div>
         </div>
-      </div>
+      </Link>
     );
   }
 
