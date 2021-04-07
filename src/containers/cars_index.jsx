@@ -2,36 +2,42 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { fetchCars } from '../actions/index';
 import { Link } from 'react-router-dom';
+
+import { fetchCars } from '../actions/index';
+import Aside from '../components/aside';
 
 class CarsIndex extends Component {
   componentDidMount() {
     this.props.fetchCars(this.props.garage);
   }
 
-  renderCar = ({ id, brand, model, owner, plate }) => {
+  renderCar = ({ id, brand, model, owner }) => {
     return (
-      <Link to={`/cars/${id}`} key={id} className="text-dec-none" >
-        <div className="card flex-column my-3">
-          <img className="card-img-top" alt={`A ${brand} ${model} car.`} src="..." />
+      <div className="card card-car flex-column my-3">
+        <Link to={`/cars/${id}`} key={id} className="text-dec-none" >
           <div className="card-body">
             <h5 className="card-title">{`${brand} - ${model}`}</h5>
             <p className="card-text">{`Owner: ${owner}`}</p>
           </div>
-        </div>
-      </Link>
+        </Link>
+      </div>
+    );
+  }
+
+  renderAside = () => {
+    return (
+      <Aside key="aside" garage={this.props.garage}>
+        <Link className="btn btn-primary" to="/cars/new">Add a car</Link>
+      </Aside>
     );
   }
 
   render() {
-    return (
-      <ul>
-        {
-          this.props.cars.map(this.renderCar)
-        }
-      </ul>
-    );
+    return [
+      this.renderAside(),
+      this.props.cars.map(this.renderCar)
+    ];
   }
 }
 

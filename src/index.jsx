@@ -41,11 +41,13 @@ const middlewares = applyMiddleware(reduxPromise, logger);
 ReactDOM.render(
   <Provider store={createStore(reducers, initialState, middlewares)}>
     <Router history={history}>
-      <Switch>
-        <Route path="/" exact component={carsIndex} />
-        <Route path="/new" component={carsNew} />
-        <Route path="/cars/:id" component={carsShow} />
-      </Switch>
+      <div className="page-container">
+        <Switch>
+          <Route path="/" exact component={carsIndex} />
+          <Route path="/cars/new" component={carsNew} />
+          <Route path="/cars/:id" component={carsShow} />
+        </Switch>
+      </div>
     </Router>
   </Provider>,
   document.getElementById('root')
