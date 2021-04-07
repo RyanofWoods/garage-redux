@@ -2,9 +2,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { reduxForm, Field } from 'redux-form';
+import { Link } from 'react-router-dom';
+
 import { createCar } from '../actions/index';
 import Aside from '../components/aside';
-import { Link } from 'react-router-dom';
 
 const required = value => (value ? undefined : 'Required');
 const license = value => (value && /^[A-Z0-9]{3,8}$/.test(value.replace(/\s/g, '')) ? undefined : 'Invalid license plate. Must be only numbers or capital letters and no more than 8');
